@@ -23,11 +23,14 @@ async def create_todo(todo):
     result = await collection.insert_one(document)
     return document
 
-async def update_todo(title, description):
+async def put_todo(title, description):
     await collection.update_one({"title":title},{"$set":{"description":description}})
     document = await collection.find_one({"title":title})
     return document
 
 async def remove_todo(title):
-    await collection.delete_one({"title":title})
-    return True
+    document = await collection.find_one({"title":title})
+    if document:
+        await collection.delete_one({"title":title})
+        return True
+    return False
