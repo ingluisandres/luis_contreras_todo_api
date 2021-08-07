@@ -1,11 +1,18 @@
+import sys
+import os
+
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()
 
-from database import fetch_one_todo, fetch_all_todos, create_todo, put_todo, remove_todo
-from model import Todo
+from app.model import Todo
+from app.database import fetch_one_todo, fetch_all_todos, create_todo, put_todo, remove_todo
 
 
 
